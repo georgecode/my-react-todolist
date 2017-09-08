@@ -1,30 +1,44 @@
-/* global expect, it, describe */
+//below we tell the linter to ignore the keywords we're using from our test program
+
+/* global expect, it, describe, jest, beforeEach */
 
 
 //---------UNIT TESTS
 import React from 'react';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import AddTodo from '.';
 
 describe('AddTodo component', () => {
+  let component;
+  const submitMock = jest.fn();
+
+  beforeEach(() => {
+    component = shallow(
+      <AddTodo
+        submitTodo={submitMock}
+      />,
+    );
+  });
 
   it('Should render successfully', () => {
-    const component = shallow(<AddTodo />);
     expect(component.exists()).toEqual(true);
   });
 
-
   it('Should have one input', () => {
-    const component = shallow(<AddTodo />);
     expect(component.find('.todo-input').length).toEqual(1);
   });
 
-
- describe('Add todo button', () => {
+  describe('Add todo button', () => {
     it('Should exist', () => {
-      const component = shallow(<AddTodo />);
       expect(component.find('.todo-submit').length).toEqual(1);
     });
-  });
 
-});//END MAIN describe
+    it('Should call the submitTodo function when clicked', () => {
+      component = mount(<AddTodo submitTodo={submitMock} />);
+
+      expect(submitMock.mock.calls.length).toEqual(0);
+      component.find('form').simulate('submit');
+      expect(submitMock.mock.calls.length).toEqual(1);
+    });
+  });
+});

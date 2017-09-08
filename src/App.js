@@ -27,7 +27,7 @@ import AddTodo from './components/addTodo/';
 const App = () => (
 	<div>	
   		<div>My App</div>
-  		<AddTodo />
+  		<AddTodo submitTodo={() => {}} />
   	</div>	
 );
 
