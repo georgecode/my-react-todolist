@@ -22,9 +22,13 @@
 
 
 import React from 'react';
+import AddTodo from './components/addTodo/';
 
 const App = () => (
-  <div>My App</div>
+	<div>	
+  		<div>My App</div>
+  		<AddTodo />
+  	</div>	
 );
 
 export default App;
