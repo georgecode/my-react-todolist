@@ -1,11 +1,3 @@
-// export const initialState = {};
-
-// export const reducer = (state = initialState, action) => state;
-
-// export default reducer;
-
-
-
 import types from '../constants/';
 
 export const initialState = {
@@ -25,7 +17,17 @@ export const reducer = (state = initialState, action) => {
             text: action.text,
           },
         ],
-      };
+      };//END  case types.SUBMIT_TODO
+
+    case types.DELETE_TODO:
+      return {
+        ...state,
+        todos: [
+          ...state.todos.filter(todo => (
+            todo.id !== action.id
+          )),
+        ],
+      };//END case types.DELETE_TODO
 
     default:
       return state;
@@ -33,3 +35,4 @@ export const reducer = (state = initialState, action) => {
 };
 
 export default reducer;
+
